@@ -1,7 +1,8 @@
 # Ideas in Bytes
 
 ![Docs](https://github.com/IndiaCFG3/team-64/workflows/Deploy%20mkdocs/badge.svg)
-![CI Tests](https://github.com/IndiaCFG3/team-64/workflows/CI%20Tests/badge.svg)
+![Node CI](https://github.com/IndiaCFG3/team-64/workflows/Node%20CI/badge.svg)
+![Python CI](https://github.com/IndiaCFG3/team-64/workflows/Python%20CI/badge.svg)
 
 ## The Problem
 
