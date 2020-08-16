@@ -51,18 +51,18 @@ ManagerSchema.methods.generateAuthToken = async function(){
 }
 
 ManagerSchema.statics.findByCredintials = async (email, password) => {
-  console.log('password', typeof(password));
   const user = await Manager.findOne({ email: email})
-  console.log(user);
   if(!user){
       throw new Error('Unable to login')
   }
   
-  if(password !== user.password){
-    throw new Error('unable to login')
-  }
-  // const isMatch = await bcrypt.compare(password, user.password)
-  return user
+  const isMatch = await bcrypt.compare(password, user.password)
+
+    if(!isMatch){
+        throw new Error('unable to login')
+    }
+
+    return user
 }
 
 

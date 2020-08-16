@@ -11,7 +11,7 @@ dbConnect();
 
 // Routes
 app.use('/manager', require('./routes/manager'));
-
+app.use('/mobilizer', require('./routes/mobilizer'));
 
 // Starting server
 const PORT = process.env.PORT || 3001;

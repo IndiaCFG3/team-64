@@ -24,7 +24,8 @@ const LeadSchema = new mongoose.Schema({
     type: String
   },
   interested: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   date: {
     type: Date,

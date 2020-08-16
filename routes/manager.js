@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const managerAuth = require('../config/managerAuth');
+const bcrypt = require('bcrypt')
+const managerAuth = require('../config/managerAuth');   
 
 // Load Manager Model
 const Mobilizer = require('../models/Mobilizer');
@@ -8,9 +9,10 @@ const Leads = require('../models/Lead');
 const Manager = require('../models/Manager');
 
 router.post('/register', async(req, res) => {
-    const manager = new Manager(req.body)
-    const token = await manager.generateAuthToken();
     try{
+        let manager = new Manager(req.body)
+        let token = await manager.generateAuthToken();
+        manager.password = await bcrypt.hash(manager.password,8);
         await manager.save()
         res.status(201).send({manageremail: manager.email,token})
     } catch(e) {
@@ -45,7 +47,7 @@ router.get('/mobilizerlist', managerAuth, async (req, res) => {
 router.get('/mobilizerDetail/:id', managerAuth, async (req, res) => {
     
     try{
-        let mobilizerDetails = await findOne({_id: req.params.id});
+        let mobilizerDetails = await Mobilizer.findOne({_id: req.params.id});
         res.send({mobilizerDetails});
     } catch(e){
         console.log(e);
@@ -63,7 +65,6 @@ router.get('/mobilizerlist/regionbased/:region', managerAuth, async(req, res) =>
         console.log(e);
         res.send({error: "some error occured"})
     }  
-    
 })
 
 // assign mobalizers to leads in the given region
@@ -78,3 +79,6 @@ router.get('/assignMobilizer/:mobid/:region', managerAuth, async(req, res) => {
 })
 
 module.exports = router;
+
+
+// progress percentage
