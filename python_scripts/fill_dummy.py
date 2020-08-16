@@ -6,7 +6,7 @@ __all__ = ["fill_missing"]
 
 fill_int_dict = {
     'program_id' : [1, 30],
-    'age' : [5, 40],
+    'age' : [16, 45],
     'distance' : [100, 8000],
     'mobilizer_id' : [1, 25],
     'last_contact' : [1, 250],
