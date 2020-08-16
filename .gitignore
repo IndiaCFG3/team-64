@@ -1,3 +1,10 @@
+Team*.zip
+*.pem
+*.ppk
+*.crt
+*.key
+*.ovpn
+
 # Files
 *.DS_Store
 *.vscode
