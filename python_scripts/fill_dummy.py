@@ -4,23 +4,32 @@ import random
 
 __all__ = ["fill_missing"]
 
-fill_int_dict = {
-    'program_id' : [1, 30],
-    'age' : [16, 45],
-    'distance' : [100, 8000],
-    'mobilizer_id' : [1, 25],
-    'last_contact' : [1, 250],
-    "gender" : [0, 2],
-    "earning" : [0, 2],
-    "education" : [0, 2],
-    # 'sucess_rate' : [0.1, 0.9],
-    'is_lead' : [0, 2],
-}
+# fill_int_dict = {
+#     'program_id' : [1, 30],
+#     'age' : [16, 45],
+#     'distance' : [100, 8000],
+#     'mobilizer_id' : [1, 25],
+#     'last_contact' : [1, 250],
+#     "gender" : [0, 2],
+#     "earning" : [0, 2],
+#     "education" : [0, 2],
+#     # 'sucess_rate' : [0.1, 0.9],
+#     'is_lead' : [0, 2],
+# }
 
 fill_float_dict = {
-    'sucess_rate' : [0.1, 0.9],
+    'success_rate' : [0.1, 0.9],
 }
 
+fill_int_dict = {
+    # "id" : [1, 300],
+    # "name" 
+    # "address"
+    "contact_no" : [7577, 89999],
+    # "success_rate" 
+    "distance" : [20, 4000],
+    "last_contact" : [1, 200],
+}
 
 def fill_missing(csv_path, fill_int_dict, fill_float_dict, nrows):
     df = pd.read_csv(csv_path)    
@@ -38,12 +47,12 @@ def fill_missing(csv_path, fill_int_dict, fill_float_dict, nrows):
         # print(type(item_min))
         df[key] = np.random.uniform(item_min, item_max, df.shape[0])
         
-    df.to_csv("../data/dummy_leads_data.csv", index=False)
+    df.to_csv("../data/dummy_backend_data.csv", index=False)
     return df
 
 
 if __name__ == "__main__":
-    df = fill_missing("..//data//Future_Leads_Prediction.csv", fill_int_dict, fill_float_dict, nrows=1000)
+    df = fill_missing("..//data//backend_data.csv", fill_int_dict, fill_float_dict, nrows=1000)
 
 
 
