@@ -1,6 +1,12 @@
 *, *:before, *:after {
   box-sizing: border-box;
 }
+.container-fluid{
+  background-color: #000000;
+}
+/* .nav-link{
+  text-decoration-color: #000;
+} */
 
 .grid {
   display: grid;

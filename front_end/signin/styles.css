@@ -20,7 +20,7 @@
 body {
 	align-items: center;
 	background-color: var(--white);
-	background: url("https://res.cloudinary.com/dwbddafc1/image/upload/v1597151453/background_n6feku.jpg");
+	/* background: url("https://res.cloudinary.com/dwbddafc1/image/upload/v1597151453/background_n6feku.jpg"); */
 	background-attachment: fixed;
 	background-position: center;
 	background-repeat: no-repeat;
