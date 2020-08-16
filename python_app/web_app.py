@@ -16,13 +16,13 @@ def index():
 
 model = pickle.load("MODEL_PATH")
 
-@app.route('/predict', methods=["POST"])
-def predict():
+# @app.route('/predict', methods=["POST"])
+# def predict():
     # Get the data row, for now just a row of csv
 
-    model.predict(data)
+    # model.predict(data)
 
-    return json.dumps({"class" : int(classid), "confidence":float(confidence)}), 200, {"ContentType":"application/json"}
+    # return json.dumps({"class" : int(classid), "confidence":float(confidence)}), 200, {"ContentType":"application/json"}
 
 if __name__ == "__main__":
     app.run()
