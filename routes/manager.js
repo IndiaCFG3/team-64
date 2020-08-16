@@ -5,8 +5,8 @@ const managerAuth = require('../config/managerAuth');
 
 // Load Manager Model
 const Mobilizer = require('../models/Mobilizer');
-const Leads = require('../models/Lead');
 const Manager = require('../models/Manager');
+const Lead = require('../models/Lead');
 
 router.post('/register', async(req, res) => {
     try{
@@ -36,6 +36,7 @@ router.post('/login', async(req, res) => {
 router.get('/mobilizerlist', managerAuth, async (req, res) => {
     try{
         let mobilezerList = await Mobilizer.find({managerid: req.user._id});
+        await Promise.all(mobilezerList);
         res.send({mobilezerList});
     } catch(e){
         console.log(e);
@@ -45,10 +46,12 @@ router.get('/mobilizerlist', managerAuth, async (req, res) => {
 
 // send the details of the mobalizers
 router.get('/mobilizerDetail/:id', managerAuth, async (req, res) => {
-    
     try{
+        let total = await Lead.find({mobilizerid: req.params.id}).count();
+        let interestedCount = await Lead.find({mobilizerid: req.params.id, interested: true}).count();
+        let successpercentage = interestedCount/total;
         let mobilizerDetails = await Mobilizer.findOne({_id: req.params.id});
-        res.send({mobilizerDetails});
+        res.send({mobilizerDetails, successpercentage});
     } catch(e){
         console.log(e);
         res.send({error: "some error occured"})
@@ -70,12 +73,26 @@ router.get('/mobilizerlist/regionbased/:region', managerAuth, async(req, res) =>
 // assign mobalizers to leads in the given region
 router.get('/assignMobilizer/:mobid/:region', managerAuth, async(req, res) => {
     try{
-        await Leads.updateMany({region: req.params.region}, {mobilizerid: req.params.mobid});
+        await Lead.updateMany({region: req.params.region}, {mobilizerid: req.params.mobid});
         res.send({update: "sucess"});
     } catch(e){
         console.log(e);
         res.send({error: "some error occured"})
     }  
+})
+
+
+// get not interested to interested percentage
+router.get('/getInterestedPercentage', managerAuth, async(req, res) => {
+    try{
+        let total = await Lead.find().count();
+        let interestedCount = await Lead.find({interested: true}).count();
+        let successpercentage = interestedCount/total;
+        res.send({successpercentage});
+    } catch(e){
+        console.log(e);
+        res.send({error: "some error occured"})
+    }
 })
 
 module.exports = router;

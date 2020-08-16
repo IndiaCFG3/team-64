@@ -39,6 +39,9 @@ const MoblizerSchema = new mongoose.Schema({
   region: {
     type: String
   },
+  successpercentage: {
+    type: Number
+  },
   tokens: [{token: {
     type: String,
     required: true
