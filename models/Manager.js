@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const validator = require('validator')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const ManagerSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    // required: true,
     trim: true
   },
   email: {
@@ -19,11 +21,19 @@ const ManagerSchema = new mongoose.Schema({
       }
     }
   },
+  phoneno: {
+    type: String
+  },
   password: {
     type: String,
     required: true,
     trim: true
   },
+
+  tokens: [{token: {
+    type: String,
+    required: true
+  }}],
 
   date: {
     type: Date,
@@ -31,6 +41,31 @@ const ManagerSchema = new mongoose.Schema({
   }
 });
 
-const Manager = mongoose.model('User', ManagerSchema);
 
-module.exports = User;
+ManagerSchema.methods.generateAuthToken = async function(){
+  const user = this
+  const token = jwt.sign({_id: user._id.toString()}, 'moveFastandBreakThings')
+  user.tokens = user.tokens.concat({token: token})
+  await user.save()
+  return token
+}
+
+ManagerSchema.statics.findByCredintials = async (email, password) => {
+  console.log('password', typeof(password));
+  const user = await Manager.findOne({ email: email})
+  console.log(user);
+  if(!user){
+      throw new Error('Unable to login')
+  }
+  
+  if(password !== user.password){
+    throw new Error('unable to login')
+  }
+  // const isMatch = await bcrypt.compare(password, user.password)
+  return user
+}
+
+
+const Manager = mongoose.model('Manager', ManagerSchema);
+
+module.exports = Manager;

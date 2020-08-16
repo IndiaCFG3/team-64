@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator')
 
-const UserSchema = new mongoose.Schema({
+const MoblizerSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -19,10 +19,17 @@ const UserSchema = new mongoose.Schema({
       }
     }
   },
+  phoneno: {
+    type: String
+  },
   password: {
     type: String,
     required: true,
     trim: true
+  },
+  managerid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Manager'
   },
   date: {
     type: Date,
@@ -30,6 +37,6 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-const User = mongoose.model('User', UserSchema);
+const Mobilizer = mongoose.model('Mobilizer', MoblizerSchema);
 
-module.exports = User;
+module.exports = Mobilizer;
