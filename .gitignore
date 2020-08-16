@@ -1,3 +1,10 @@
+Team*.zip
+*.pem
+*.ppk
+*.crt
+*.key
+*.ovpn
+
 # Files
 *.DS_Store
 *.vscode
@@ -9,7 +16,7 @@
 docs/site
 
 # Data Folder
-data/
+# data/
 
 # Models
 *.h5
