@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
 
 if __name__ == "__main__":
@@ -20,7 +20,7 @@ if __name__ == "__main__":
     X_train = sc.fit_transform(X_train)
     X_test = sc.transform(X_test)
 
-    classifier = RandomForestRegressor(n_estimators = 300 , random_state = 42)
+    classifier = RandomForestClassifier(n_estimators = 300 , random_state = 42)
     classifier.fit(X_train, y_train)
 
   
@@ -29,5 +29,5 @@ if __name__ == "__main__":
 
     loaded_model = pickle.load(open('..//data//model.pkl', 'rb'))
 
-    y_pred = loaded_model.predict(X_test)
+    y_pred = loaded_model.predict_proba(X_test)
   
