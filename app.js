@@ -12,9 +12,6 @@ require('dotenv').config();
 // Passport Config
 require('./config/passport')(passport);
 
-// DB Config
-// const db = require('./config/dbConnect').mongoURI;
-
 // Connect to MongoDB
 const dbConnect = require('./config/dbConnect');
 dbConnect();
