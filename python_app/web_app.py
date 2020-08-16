@@ -4,30 +4,38 @@ import base64
 import sys
 import json
 import pickle
+import pandas as pd
+
 
 # Assign the html folder.
-app = Flask(__name__, template_folder="templates")
+# app = Flask(__name__, template_folder="templates")
+
+app = Flask(__name__)
 print("App started")
+
+df = pd.read_csv("..//data//dummy_leads_data.csv")
+X = df.iloc[:, 0:9].values[42]
+X = X.reshape(1, -1)
+
+with open("..//data//model.pkl", "rb") as f:
+    model = pickle.load(f)
+
+# y = df.iloc[:, 9].values
 
 # Render the index.html
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return "Alive"
 
-model = pickle.load("MODEL_PATH")
-
-# @app.route('/predict', methods=["POST"])
-# def predict():
+@app.route('/predict', methods=["GET"])
+def predict():
     # Get the data row, for now just a row of csv
+    out = model.predict(X)
+    classid = out[0]
+    # print(out)
 
-    # model.predict(data)
-
-    # return json.dumps({"class" : int(classid), "confidence":float(confidence)}), 200, {"ContentType":"application/json"}
+    return json.dumps({"class" : int(classid)}), 200, {"ContentType":"application/json"}
 
 if __name__ == "__main__":
     app.run()
-
-
-
-
 
