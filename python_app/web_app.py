@@ -13,8 +13,8 @@ import pandas as pd
 app = Flask(__name__)
 print("App started")
 
-df = pd.read_csv("..//data//dummy_leads_data.csv")
-X = df.iloc[:, 0:9].values[42]
+df = pd.read_csv("..//data//dummy_leads_data2.csv")
+X = df.iloc[:, 0:5].values[42]
 X = X.reshape(1, -1)
 
 with open("..//data//model.pkl", "rb") as f:
@@ -25,6 +25,7 @@ with open("..//data//model.pkl", "rb") as f:
 # Render the index.html
 @app.route('/')
 def index():
+    print()
     return "Alive"
 
 @app.route('/predict', methods=["GET"])
@@ -34,6 +35,7 @@ def predict():
     classid = out[0]
     # print(out)
 
+    print()
     return json.dumps({"class" : int(classid)}), 200, {"ContentType":"application/json"}
 
 if __name__ == "__main__":
