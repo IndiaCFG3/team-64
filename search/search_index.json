@@ -1,0 +1,1 @@
+{"config":{"lang":["en"],"min_search_length":3,"prebuild_index":false,"separator":"[\\s\\-]+"},"docs":[{"location":"","text":"Team 64 This is docs built for Team 64 using mkdocs.org .","title":"Home"},{"location":"#team-64","text":"This is docs built for Team 64 using mkdocs.org .","title":"Team 64"}]}
